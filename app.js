@@ -1,41 +1,55 @@
-const App = {
+const h = Vue.h
+
+const app = Vue.createApp({
   data() {
     return {
-      title: 'Список заметок',
-      placeholderString: 'Введите название заметки',
-      inputValue: '',
-      notes: ['Заметка 1', 'Заметка 2', 'Заметка 3'],
-      name: ''
+      title: 'Это из свойства template'
     }
   },
   methods: {
-    addNewNote() {
-      if (this.inputValue !== '') {
-        this.notes.push(this.inputValue)
-        this.inputValue = ''
-      }
-    },
-    toUpperCase(item) {
-      return item.toUpperCase()
-    },
-    removeNote(index) {
-      this.notes.splice(index, 1)
+    changeTitle() {
+      console.log(this)
+      this.title = 'Изменили!'
     }
   },
-  computed: {
-    doubleCount() {
-      return this.notes.length * 2
-    }
+  // template: `
+  //   <div class="card center">
+  //       <h1>{{ title }}</h1>
+  //       <button class="btn" @click="title = 'Изменили!!!'">Изменить</button>
+  //   </div>
+  // `
+  render() {
+    return h('div', {
+      class: 'card center'
+    }, [
+      h('h1', {}, this.title),
+      h('button', {
+        class: 'btn',
+        onclick: this.changeTitle
+      }, 'Изменить')
+    ])
   },
-  watch: {
-    inputValue(value) {
-      if (value.length > 10) {
-        this.inputValue = ''
-      }
+  beforeCreate() {
+    console.log(`beforeCreate`)
+  },
+  created() {
+    console.log(`created`)
+  },
+  beforeMount() {
+    console.log(`beforeMount`)
+  },
+  mounted() {
+    console.log(`mounted`)
+  }
+})
+
+app.mount('#app')
+
+Vue.createApp({
+  data() {
+    return {
+      title: `Vue title 2`
     }
   }
-}
-
-Vue.createApp(App).mount('#app')
-
+}).mount('#app2')
 
