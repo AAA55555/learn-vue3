@@ -1,9 +1,11 @@
 <template>
   <div class="container pt-1">
     <div class="card">
+      <async-component></async-component>
       <h2>Динамичесие и асинхронные компоненты</h2>
 
       <app-button
+          ref="myBtn"
           :color="oneColor"
           @action="active = 'one'"
       >
@@ -38,9 +40,12 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.componentName = 'new comp name'
-    }, 2000)
+    // setTimeout(() => {
+    //   this.componentName = 'new comp name'
+    // }, 2000)
+
+    // вызывает метод у компонента через ref
+    this.$refs.myBtn.btnLog()
   },
   computed: {
     // componentName () {
