@@ -1,49 +1,50 @@
 <template>
   <div class="container pt-1">
     <div class="card">
-      <h2>Тема slots</h2>
+      <h2>Динамичесие и асинхронные компоненты</h2>
+
+      <app-button
+          :color="active === 'one' ? 'primary' : ''"
+          @action="active = 'one'"
+      >
+        one
+      </app-button>
+      <app-button
+          :color="active === 'two' ? 'primary' : ''"
+          @action="active = 'two'"
+      >
+        two
+      </app-button>
     </div>
 
-    <app-list>
-<!--      <template #default="slotProps">-->
-      <template #default="{ iter, idx }">
-        <span style="color: #c25205;">
-          <strong>{{ idx + 1 }}</strong>
-          Item {{ iter }}
-        </span>
-      </template>
-      <template #footer="{ currentIndex }">
-        <span style="color: blue;">{{ currentIndex }}</span>
-      </template>
-    </app-list>
+    <component :is="componentName"></component>
 
-    <app-block>
-      <p>
-        Этот текст из App.vue
-      </p>
-
-      <template #header>
-        <h3>
-          Это заголовок
-        </h3>
-      </template>
-
-      <template v-slot:footer>
-        <hr>
-        <small>Это footer</small>
-      </template>
-    </app-block>
   </div>
 </template>
 
 <script>
 
-import AppBlock from "./AppBlock";
-import AppList from "./AppList";
-
+import AppButton from "./AppButton";
+import AppTextOne from "./AppTextOne";
+import AppTextTwo from "./AppTextTwo";
 export default {
   name: "App",
-  components: {AppBlock, AppList}
+  components: {AppButton, AppTextOne, AppTextTwo},
+  data() {
+    return {
+      active: 'one' //two
+    }
+  },
+  computed: {
+    componentName () {
+      // if (this.active === 'one') {
+      //   return 'app-text-one'
+      // }
+      // return 'app-text-two'
+
+      return 'app-text-' + this.active
+    }
+  }
 }
 </script>
 
