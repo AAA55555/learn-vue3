@@ -1,78 +1,60 @@
 <template>
-  <div class="container pt-1">
-    <div class="card">
-      <async-component></async-component>
-      <h2>Динамичесие и асинхронные компоненты</h2>
+  <div class="container">
+    <form class="card">
+      <h1>Анкета на Vue разработчика!</h1>
+      <div class="form-control">
+        <label for="name">Как тебя зовут?</label>
+        <input type="text" id="name" placeholder="Введи имя">
+      </div>
 
-      <app-button
-          ref="myBtn"
-          :color="oneColor"
-          @action="active = 'one'"
-      >
-        one
-      </app-button>
-      <app-button
-          :color="twoColor"
-          @action="active = 'two'"
-      >
-        two
-      </app-button>
-    </div>
+      <div class="form-control">
+        <label for="age">Выбери возраст</label>
+        <input type="number" id="age" value="20">
+      </div>
 
-    <keep-alive>
-      <component :is="componentName"></component>
-    </keep-alive>
+      <div class="form-control">
+        <label for="city">Твой город</label>
+        <select id="city">
+          <option value="spb">Санкт-Петербург</option>
+          <option value="msk">Москва</option>
+          <option value="kzn">Казань</option>
+          <option selected value="nsk">Новосибирск</option>
+        </select>
+      </div>
 
+      <div class="form-checkbox">
+        <span class="label">Готов к переезду в Токио?</span>
+        <div class="checkbox">
+          <label><input type="radio" name="trip"/> Да</label>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="radio" name="trip"/> Нет</label>
+        </div>
+      </div>
+
+      <div class="form-checkbox">
+        <span class="label">Что знаешь во Vue?</span>
+        <div class="checkbox">
+          <label><input type="checkbox"/> Vuex</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox"/> Vue CLI</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox"/> Vue Router</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn primary">Отправить</button>
+    </form>
   </div>
 </template>
 
 <script>
-
-import AppButton from "./AppButton";
-import AppTextOne from "./AppTextOne";
-import AppTextTwo from "./AppTextTwo";
-export default {
-  name: "App",
-  components: {AppButton, AppTextOne, AppTextTwo},
-  data() {
-    return {
-      active: 'one' //two
-    }
-  },
-  mounted() {
-    // setTimeout(() => {
-    //   this.componentName = 'new comp name'
-    // }, 2000)
-
-    // вызывает метод у компонента через ref
-    this.$refs.myBtn.btnLog()
-  },
-  computed: {
-    // componentName () {
-    //   // if (this.active === 'one') {
-    //   //   return 'app-text-one'
-    //   // }
-    //   // return 'app-text-two'
-    //
-    //   return 'app-text-' + this.active
-    // },
-    componentName: {
-      get() {
-        return 'app-text-' + this.active
-      },
-      set(value) {
-        console.log('componentName ', value)
-      }
-    },
-    oneColor () {
-      return this.active === 'one' ? 'primary' : ''
-    },
-    twoColor () {
-      return this.active === 'two' ? 'primary' : ''
-    }
-  }
-}
+  export default {}
 </script>
 
-<style scoped>
+<style>
+
 </style>
